@@ -369,4 +369,17 @@ class SoftDeleteManager
             }
         }
     }
+    
+    /**
+     * Creates a softDelete aware query builder
+     */    
+    public function createQueryBuilder($includeDeleted=false)
+    {
+        $qb = $this->dm->createQueryBuilder();
+        if (! $includeDeleted) {
+            $qb->field('deletedAt')->equals(NULL);
+        }
+        return $qb;        
+    }
+    
 }
